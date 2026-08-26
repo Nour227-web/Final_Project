@@ -25,6 +25,7 @@ class User extends Authenticatable
         'role'
     ];
 
+
     public function isAdmin()
     {
     return $this->role === 'admin';
@@ -56,5 +57,13 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+       public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
     }
 }

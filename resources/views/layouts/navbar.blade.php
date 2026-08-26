@@ -10,7 +10,13 @@
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <a class="nav-link" href="{{ route('products.index') }}">Products</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('cart.index') }}">Cart</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('orders.index') }}">Orders</a>
         </li>
         <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->

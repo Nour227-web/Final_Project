@@ -1,0 +1,22 @@
+<?php
+
+namespace App\Models;
+use App\Models\product;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Brand extends Model
+{
+    protected $fillable = [
+        'name',
+        'description',
+        'image',
+    ];
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+}
+
+

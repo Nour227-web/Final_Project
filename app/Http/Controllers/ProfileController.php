@@ -14,27 +14,18 @@ class ProfileController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * عرض صفحة البروفايل
-     */
     public function show()
     {
         $user = Auth::user();
         return view('profile.show', compact('user'));
     }
 
-    /**
-     * عرض صفحة تعديل البروفايل
-     */
     public function edit()
     {
         $user = Auth::user();
         return view('profile.edit', compact('user'));
     }
 
-    /**
-     * تحديث بيانات البروفايل
-     */
     public function update(Request $request)
     {
         $user = Auth::user();

@@ -66,8 +66,8 @@
 
                             <div class="col-md-6">
                                 <select id="role" name="role" class="form-control @error('role') is-invalid @enderror" required>
-                                    <option value="customer" {{ old('role') == 'customer' ? 'selected' : '' }}>Customer</option>
-                                    <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
+                                <option value="customer" {{ old('role') == 'customer' ? 'selected' : '' }}>Customer</option>
+                                <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
                                 </select>
 
                                 @error('role')
