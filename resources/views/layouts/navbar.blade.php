@@ -55,9 +55,21 @@
                             </li>
                         @endguest
                     </ul>
-        <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-        </li>
+                    @if(auth()->check() && auth()->user()->role == 'admin')
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('categories.index') }}">
+                        Categories
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('brands.index') }}">
+                        Brands
+                    </a>
+                </li>
+
+            @endif
       </ul>
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
