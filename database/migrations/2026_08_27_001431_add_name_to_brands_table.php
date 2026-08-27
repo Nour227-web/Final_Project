@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('brands', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
+       Schema::table('brands', function (Blueprint $table) {
+        $table->string('name')->after('id');
+    });
     }
 
     /**
@@ -22,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('brands');
+        Schema::table('brands', function (Blueprint $table) {
+        $table->dropColumn(['name']);
+    });
     }
 };

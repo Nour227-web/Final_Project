@@ -1,28 +1,27 @@
 @extends('layouts.app')
 
-
 @section('content')
 
     <title>Cart</title>
 
     <style>
-        body{
+        body {
             font-family: Arial, sans-serif;
             background: #f5f6fa;
             margin: 0;
             padding: 20px;
         }
 
-        h1{
+        h1 {
             text-align: center;
         }
 
-        .container{
+        .container {
             width: 70%;
             margin: auto;
         }
 
-        .cart-card{
+        .cart-card {
             background: #fff;
             padding: 15px;
             margin: 15px 0;
@@ -33,27 +32,25 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
-        .info h3{
+        .info h3 {
             margin: 0;
         }
 
-        .info p{
+        .info p {
             margin: 5px 0;
         }
 
-        .qty{
+        .qty {
             font-weight: bold;
         }
 
-        /* actions container */
-        .actions{
+        .actions {
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        /* buttons */
-        .actions a{
+        .actions a {
             width: 38px;
             height: 38px;
             display: flex;
@@ -68,30 +65,30 @@
             box-shadow: 0 3px 8px rgba(0,0,0,0.15);
         }
 
-        .actions a:hover{
+        .actions a:hover {
             transform: scale(1.1);
         }
 
-        .plus{
+        .plus {
             background: linear-gradient(135deg, #87f8b6, #27ae60);
         }
 
-        .minus{
+        .minus {
             background: linear-gradient(135deg, #f1e6b3, #e67e22);
         }
 
-        .delete{
+        .delete {
             background: linear-gradient(135deg, #e74c3c, #c0392b);
         }
 
-        .total{
+        .total {
             text-align: right;
             font-size: 22px;
             margin-top: 20px;
             font-weight: bold;
         }
 
-        .checkout{
+        .checkout {
             display: block;
             text-align: center;
             background: #000;
@@ -104,59 +101,92 @@
             transition: 0.3s;
         }
 
-        .checkout:hover{
+        .checkout:hover {
             background: #333;
         }
 
-        .empty{
+        .empty {
             text-align: center;
             font-size: 18px;
             color: gray;
             margin-top: 50px;
         }
     </style>
-<div class="container">
 
-    <h1>🛒 My Cart</h1>
+    <div class="container">
 
-    @if(empty($cart))
-        <p class="empty">Your cart is empty</p>
-    @else
+        <h1>🛒 My Cart</h1>
 
-        @php $total = 0; @endphp
+        @if($cart->items->isEmpty())
 
-        @foreach($cart as $item)
+            <p class="empty">Your cart is empty</p>
 
-            @php $total += $item['price'] * $item['qty']; @endphp
+        @else
 
-            <div class="cart-card">
+            @php
+                $total = 0;
+            @endphp
 
-                <div class="info">
-                    <h3>{{ $item['name'] }}</h3>
-                    <p>Price: {{ $item['price'] }} EGP</p>
-                    <p class="qty">Qty: {{ $item['qty'] }}</p>
+            @foreach($cart->items as $item)
+
+                @php
+                    $total += $item->product->price * $item->quantity;
+                @endphp
+
+                <div class="cart-card">
+
+                    <div class="info">
+
+                        <h3>
+                            {{ $item->product->name }}
+                        </h3>
+
+                        <p>
+                            Price: {{ $item->product->price }} EGP
+                        </p>
+
+                        <p class="qty">
+                            Qty: {{ $item->quantity }}
+                        </p>
+
+                    </div>
+
+                    <div class="actions">
+
+                        <a
+                            class="plus"
+                            href="{{ url('/cart/increase/' . $item->product_id) }}">
+                            +
+                        </a>
+
+                        <a
+                            class="minus"
+                            href="{{ url('/cart/decrease/' . $item->product_id) }}">
+                            -
+                        </a>
+
+                        <a
+                            class="delete"
+                            href="{{ url('/cart/delete/' . $item->product_id) }}">
+                            ✖
+                        </a>
+
+                    </div>
+
                 </div>
 
-                <div class="actions">
-                    <a class="plus" href="/cart/increase/{{ $item['id'] }}">+</a>
-                    <a class="minus" href="/cart/decrease/{{ $item['id'] }}">-</a>
-                    <a class="delete" href="/cart/delete/{{ $item['id'] }}">✖</a>
-                </div>
+            @endforeach
 
+            <div class="total">
+                Total: {{ $total }} EGP
             </div>
 
-        @endforeach
+            <a class="checkout" href="{{ url('/checkout') }}">
+                Checkout
+            </a>
 
-        <div class="total">
-            Total: {{ $total }} EGP
-        </div>
+        @endif
 
-        <a class="checkout" href="/checkout">
-            Checkout
-        </a>
-
-    @endif
-
-</div>
+    </div>
 
 @endsection

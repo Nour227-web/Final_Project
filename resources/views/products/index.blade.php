@@ -145,6 +145,7 @@
         margin-top: auto;
         display: flex;
         align-items: center;
+        flex-wrap: wrap;
         gap: 0.75rem;
         padding-top: 0.5rem;
         border-top: 1px solid var(--line);
@@ -171,6 +172,23 @@
     }
     .pv-card-form button:hover { color: var(--danger-dark); }
     .pv-dot { color: var(--line); }
+    .pv-cart-btn {
+        font-family: 'Space Grotesk', sans-serif;
+        font-weight: 600;
+        font-size: 0.82rem;
+        background: var(--accent);
+        color: #fff;
+        border: none;
+        padding: 0.4rem 0.85rem;
+        border-radius: 6px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        margin-left: auto;
+        transition: background 0.15s ease;
+    }
+    .pv-cart-btn:hover { background: var(--accent-dark); color: #fff; }
 </style>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -226,6 +244,10 @@
                                     @method('DELETE')
                                     <button type="submit" onclick="return confirm('Delete this product?')">Delete</button>
                                 </form>
+                            @endif
+
+                            @if(auth()->user()->isCustomer())
+                                <a href="{{ route('cart.add', $product->id) }}" class="pv-cart-btn">🛒 Add to Cart</a>
                             @endif
                         @endauth
                     </div>

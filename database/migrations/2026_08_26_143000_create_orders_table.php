@@ -10,11 +10,19 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
+
+            $table->foreignId('user_id')
+                  ->constrained('users')
+                  ->onDelete('cascade');
+
             $table->decimal('total', 10, 2);
+
             $table->string('status')->default('pending');
+
             $table->text('shipping_address');
+
             $table->string('phone');
+
             $table->timestamps();
         });
     }
