@@ -1,13 +1,53 @@
 <?php
 
 use App\Http\Controllers\ProductController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CartController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\BrandController;
+
+
+
+Route::get('/', function () {
+    return view('home');
+})->name('home');
+
+
+Route::resource('products', ProductController::class);
+
+
+
+Route::get('/search', [ProductController::class, 'search'])
+    ->name('products.search');
+
+Route::get('/products/filter', [ProductController::class, 'filter'])
+    ->name('products.filter');
+
+Route::get('/products/sort', [ProductController::class, 'sort'])
+    ->name('products.sort');
+
+
+
+Route::middleware(['auth'])->group(function () {
+
+    
+
+    Route::resource('categories', CategoryController::class);
+    Route::resource('brands', BrandController::class);
+    Route::get(
+        '/categories/{category}/products',
+        [CategoryController::class, 'products']
+    )->name('categories.products');
+    Route::get(
+        '/brands/{brand}/products',
+        [BrandController::class, 'products']
+    )->name('brands.products');
+});
 
 
 Route::get('/', function () {
@@ -46,7 +86,9 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 Route::middleware(['auth', 'role:customer'])->group(function () {
     Route::get('/customer/dashboard', [CustomerController::class, 'index'])->name('customer.dashboard');
 });
+
 Auth::routes();
+
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -83,3 +125,5 @@ Route::delete('/reviews/{review}', [App\Http\Controllers\ReviewController::class
 
     Route::get('/cart', [CartController::class, 'index'])
     ->name('cart.index');
+
+    
