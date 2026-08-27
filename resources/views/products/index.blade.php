@@ -233,7 +233,7 @@
 
                     <div class="pv-card-actions">
                         <a href="{{ route('products.show', $product->id) }}" class="pv-link">View</a>
-
+                        <a href="{{ route('reviews.index', $product->id) }}" class="pv-link">Reviews</a>
                         @auth
                             @if(auth()->user()->isAdmin())
                                 <span class="pv-dot">&middot;</span>
