@@ -8,7 +8,7 @@
 
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <h1 class="fw-bold">Laptop Brands</h1>
+            <h1 class="fw-bold">Brands</h1>
             <p class="text-muted">Choose a brand</p>
         </div>
 
