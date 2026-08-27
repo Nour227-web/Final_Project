@@ -9,6 +9,8 @@ class Brand extends Model
 {
     protected $fillable = [
         'name',
+        'description',
+        'image',
     ];
 
     public function products()
